@@ -9,7 +9,7 @@
     <title>SeferYak</title>
     {% endif %}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="icon" href="../static/logo.png" type="image/png">
+    <link rel="icon" href="{{ url_for('static', filename = 'logo.png') }}" type="image/png">
     
 </head>
 <body>
@@ -17,12 +17,13 @@
         <header class="site-header">
             <nav class="navbar navbar-light bg-light">
                 <a class="navbar-brand" href="#">
-                  <img src="../static/logo.png" width="60" height="30" alt="logo" loading="lazy">&nbsp; MyShughnan
+                  <img src="{{ url_for('static', filename = 'logo.png') }}" width="60" height="30" alt="logo" loading="lazy">&nbsp; MyShughnan
                 </a>
                 <div class="form-inline my-2 my-lg-0">
                         <ul class="navbar-nav mr-auto">
                           <li class="nav-item active">
                             {% if current_user.is_authenticated %}
+                            <a class="btn btn-outline-primary" href="{{ url_for('new_post') }}">New Post</a>
                             <a class="btn btn-outline-primary" href="{{ url_for('account') }}">Account</a>
                               <a class="btn btn-outline-primary" href="{{ url_for('logout') }}">Logout</a>
                             {% else %}
