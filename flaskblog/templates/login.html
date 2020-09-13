@@ -42,14 +42,13 @@
             {{ form.submit(class = "btn btn-outline-info") }}
         </div>
         <small class="text-muted ml-2">
-            <a href="{{ url_for('reset_request') }}">Forgot Password? </a>
+            <a href="{{ url_for('users.reset_request') }}">Forgot Password? </a>
         </small>
 
     </form>
-</div>
 <div class="border-top pt-3">
     <small class="text-muted">
-        Not registered yet? <a class="ml-2" href="{{ url_for('signup') }} ">Register Here</a>
+        Not registered yet? <a class="ml-2" href="{{ url_for('users.signup') }} ">Register Here</a>
     </small>
 </div>
 {% endblock content %}
