@@ -8,5 +8,5 @@ class Config:
     MAIL_PORT = 587
     MAIL_USE_TLS = True
     #Email Creditial
-    MAIL_USERNAME = 'Email Address'
-    MAIL_PASSWORD = 'Password'
+    MAIL_USERNAME = 'Your Email Goes Here'
+    MAIL_PASSWORD = 'Your Email s Password'
