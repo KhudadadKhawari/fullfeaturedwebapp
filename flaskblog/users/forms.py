@@ -1,9 +1,11 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, file_allowed
-from flask_login import current_user
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
-from wtforms.validators import DataRequired, Length, Email, EqualTo
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from flask_login import current_user
 from flaskblog.models import User
+
+
 
 class SignUp(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=6,max=20)])
@@ -45,3 +47,17 @@ class UpdateAccountForm(FlaskForm):
             user = User.query.filter_by(email = email.data ).first()
             if user:
                 raise ValueError('E-mail already Exist, please choose another email')
+
+
+class RequestResetForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    submit = SubmitField('Request Password Reset')
+    def validate_email(self, email):
+        user = User.query.filter_by(email = email.data ).first()
+        if user is None:
+            raise ValueError('E-mail not found, Please create an account first.')
+            
+class ResetPasswordForm(FlaskForm):
+    password = PasswordField('Password',validators=[DataRequired(),])
+    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('Reset Password')

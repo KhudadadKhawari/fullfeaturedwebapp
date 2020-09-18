@@ -2,87 +2,106 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename = 'logo.png') }}" type="image/png">
     {% if title: %}
     <title>SeferYak- {{ title }}</title>
     {% else: %}
     <title>SeferYak</title>
     {% endif %}
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="icon" href="../static/logo.png" type="image/png">
-    
 </head>
+<!--##############################################################################################################-->
 <body>
-    <div class="container">
-        <header class="site-header">
-            <nav class="navbar navbar-light bg-light">
-                <a class="navbar-brand" href="#">
-                  <img src="../static/logo.png" width="60" height="30" alt="logo" loading="lazy">&nbsp; MyShughnan
-                </a>
-                <div class="form-inline my-2 my-lg-0">
-                        <ul class="navbar-nav mr-auto">
-                          <li class="nav-item active">
-                            {% if current_user.is_authenticated %}
-                            <a class="btn btn-outline-primary" href="{{ url_for('account') }}">Account</a>
-                              <a class="btn btn-outline-primary" href="{{ url_for('logout') }}">Logout</a>
-                            {% else %}
-                              <a class="btn btn-outline-primary" href="{{ url_for('login') }}">Login</a>
-                              <a class="btn btn-outline-primary" href="{{ url_for('signup') }}">Sign Up</a>
-                            {% endif %}
-                          </li>
-                        </ul>
-                </div>
+  <div class="container">
+    <header class="site-header">
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand" href="#">
+              <img src="{{ url_for('static', filename = 'logo.png') }}" width="60" height="30" alt="logo" loading="lazy">&nbsp; MyShughnan
+            </a>
+            <div class="form-inline my-2 my-lg-0">
+                    <ul class="navbar-nav mr-auto">
+                      <li class="nav-item active">
+                        {% if current_user.is_authenticated %}
+                        <a class="btn btn-outline-primary" href="{{ url_for('posts.new_post') }}">New Post</a>
+                        <a class="btn btn-outline-primary" href="{{ url_for('users.account') }}">Account</a>
+                          <a class="btn btn-outline-primary" href="{{ url_for('users.logout') }}">Logout</a>
+                        {% else %}
+                          <a class="btn btn-outline-primary" href="{{ url_for('users.login') }}">Login</a>
+                          <a class="btn btn-outline-primary" href="{{ url_for('users.signup') }}">Sign Up</a>
+                        {% endif %}
+                      </li>
+                    </ul>
+            </div>
 
-            </nav>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-                </button>
-              
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                  <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                      <a class="nav-link" href="{{ url_for('home') }}">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Blog <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item active">
-                       <a class="nav-link" href="#">Gallary <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">About Us <span class="sr-only">(current)</span></a>
-                     </li>
-                     <li class="nav-item active">
-                        <a class="nav-link" href="#">Contact <span class="sr-only">(current)</span></a>
-                     </li>
-                  </ul>
-                  <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                  </form>
-                </div>
-            </nav>
-        </header>
-        <div class="row">
-            <div class="col-sm-8" style="border: 1px solid grey">
-                {% with messages = get_flashed_messages(with_categories=true) %}
-                    {% if messages %}
-                        {% for category, message in messages %}
-                            <div class="alert alert-{{ category }}">
-                                {{message}}
-                            </div>
-                        {% endfor %}
-                    {% endif %}
-                {% endwith %}
-                {% block content %} {% endblock %}
+        </nav>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="{{ url_for('main.home') }}">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Blog <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Gallary <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">About Us <span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="nav-item active">
+                    <a class="nav-link" href="#">Contact <span class="sr-only">(current)</span></a>
+                  </li>
+              </ul>
+              <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+              </form>
             </div>
-            <div class="col-sm-4" style="border: 1px solid grey">
-               {% block panel %} {% endblock %}            
-            </div>
+        </nav>
+    </header>
+    <!--####################################################################################################-->
+    <main role="main" class="container">
+      <div class="row">
+        <div class="col-md-8">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            {{message}}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            {% block content %} {% endblock %}
+            
         </div>
+        <!--###########################################################-->
+        <div class="col-md-4">
+          <div class="content-section">
+            <h3>Side Bar</h3>
+            <p class='text-muted'>You can put any information here you'd like.
+              <ul class="list-group">
+                <li class="list-group-item list-group-item-light">Latest Posts</li>
+                <li class="list-group-item list-group-item-light">Announcements</li>
+                <li class="list-group-item list-group-item-light">Calendars</li>
+                <li class="list-group-item list-group-item-light">etc</li>
+              </ul>
+            </p>
+          </div>
+        </div>
+        <!--###########################################################-->
+      </div>
+    </main>
+  </div>
         
-    </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
